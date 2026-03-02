@@ -1,0 +1,28 @@
+CREATE Database Company;                                          #Creates new database named "Company".
+USE Company;                                                      #References database
+
+CREATE TABLE Departments(
+DepartmentID int primary key,
+DepartmentName varchar(50)not null
+);
+
+CREATE TABLE Employee(
+EmployeeID int primary key,
+FirstName varchar(50)not null,
+LastName varchar(50)not null,
+Age INT CHECK(Age>=18 AND Age<=60),
+Email VARCHAR(100),
+DepartmentID INT,
+FOREIGN KEY(DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+INSERT INTO Departments(DepartmentID, DepartmentName) values (23, "Computer Science");
+INSERT INTO Departments(DepartmentID, DepartmentName) values (12, "Psychology");
+INSERT INTO Departments(DepartmentID, DepartmentName) values (07, "Education")
+
+SHOW DATABASES;
+USE Company;
+SHOW TABLES;
+
+SELECT * FROM Departments;
+SELECT * FROM Employee;
