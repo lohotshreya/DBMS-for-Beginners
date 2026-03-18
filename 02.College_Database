@@ -1,0 +1,48 @@
+CREATE DATABASE College;
+USE College;
+CREATE TABLE Students(
+FirstName varchar(255),
+RollNo int NOT NULL,
+StudentID int NOT NULL,
+Marks int NOT NULL
+)
+
+USE College;
+INSERT INTO Students(FirstName, RollNo, StudentID, Marks) Values ('Shreya', 54, 1234, 92), ('Aarya', 08, 1243, 67), ('Kshitij', 51, 1564, 87), ('Kartik', 48, 3784, 89), ('Aditi', 03, 1567, 91), ('Arya', 26, 3467, 53)
+
+CREATE TABLE Courses (
+CourseID int PRIMARY KEY,
+CourseName varchar(255)
+);
+
+CREATE TABLE Student_Course (
+StudentID int,
+CourseID int,
+PRIMARY KEY (StudentID, CourseID),
+FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+CREATE TABLE Faculty(
+FacultyID int PRIMARY KEY,
+FacultyName varchar(255),
+CourseID int,
+FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+
+
+
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+INNER JOIN Student_Course 
+ON Students.StudentID = Student_Course.StudentID
+INNER JOIN Courses 
+ON Student_Course.CourseID = Courses.CourseID;
+
+
+INSERT INTO Courses (CourseID, CourseName)
+VALUES 
+(1, 'Math'),
+(2, 'Physics'),
+(3, 'Computer Science');
