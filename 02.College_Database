@@ -41,6 +41,27 @@ INNER JOIN Courses
 ON Student_Course.CourseID = Courses.CourseID;
 
 
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+LEFT JOIN Student_Course 
+ON Students.StudentID = Student_Course.StudentID
+LEFT JOIN Courses 
+ON Student_Course.CourseID = Courses.CourseID;
+
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+RIGHT JOIN Student_Course 
+ON Students.StudentID = Student_Course.StudentID
+RIGHT JOIN Courses 
+ON Student_Course.CourseID = Courses.CourseID;
+
+
+USE college;
+CREATE TABLE Department(
+DeptName varchar(255),
+DeptID int NOT NULL,
+StudentID int NOT NULL
+);
 INSERT INTO Courses (CourseID, CourseName)
 VALUES 
 (1, 'Math'),
