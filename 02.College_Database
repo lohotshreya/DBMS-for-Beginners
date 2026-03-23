@@ -1,6 +1,6 @@
 CREATE DATABASE College;
 USE College;
-CREATE TABLE Students(
+CREATE TABLE students(
 FirstName varchar(255),
 RollNo int NOT NULL,
 StudentID int NOT NULL,
