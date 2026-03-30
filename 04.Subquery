@@ -1,0 +1,8 @@
+#USED TO CHECK IF THERE IS ANY RECORD WHICH EXISTS
+
+USE college;
+SELECT DeptName, StudentID
+FROM department d
+WHERE EXISTS (
+SELECT * FROM students s
+WHERE s.StudentID = d.StudentID);
