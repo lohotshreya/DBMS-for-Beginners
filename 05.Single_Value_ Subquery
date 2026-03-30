@@ -1,0 +1,6 @@
+# When Subquery returns only one value
+
+USE college;
+SELECT FirstName, Marks
+FROM students
+WHERE Marks= ( SELECT MAX(Marks) FROM students);
