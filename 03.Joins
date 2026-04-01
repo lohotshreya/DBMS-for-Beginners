@@ -1,24 +1,23 @@
-USE College;
+-- INNER JOIN: Students enrolled in courses
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+INNER JOIN Student_Course ON Students.StudentID = Student_Course.StudentID
+INNER JOIN Courses ON Student_Course.CourseID = Courses.CourseID;
 
--- INNER JOIN: Only returns matches in both tables
-SELECT S.FirstName, C.CourseName
-FROM Students S
-INNER JOIN Student_Course SC ON S.StudentID = SC.StudentID
-INNER JOIN Courses C ON SC.CourseID = C.CourseID;
+-- LEFT JOIN: All students (even those without a course)
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+LEFT JOIN Student_Course ON Students.StudentID = Student_Course.StudentID
+LEFT JOIN Courses ON Student_Course.CourseID = Courses.CourseID;
 
--- LEFT JOIN: All students, even those not enrolled in a course
-SELECT S.FirstName, C.CourseName
-FROM Students S
-LEFT JOIN Student_Course SC ON S.StudentID = SC.StudentID
-LEFT JOIN Courses C ON SC.CourseID = C.CourseID;
+-- RIGHT JOIN: All courses (even those without students)
+SELECT Students.FirstName, Courses.CourseName
+FROM Student_Course
+RIGHT JOIN Courses ON Student_Course.CourseID = Courses.CourseID
+LEFT JOIN Students ON Student_Course.StudentID = Students.StudentID;
 
--- RIGHT JOIN: All courses, even if no students are enrolled
-SELECT S.FirstName, C.CourseName
-FROM Student_Course SC
-RIGHT JOIN Courses C ON SC.CourseID = C.CourseID
-LEFT JOIN Students S ON SC.StudentID = S.StudentID;
-
--- SELF JOIN: Joining a table to itself (Example: Faculty and their Managers)
-SELECT A.FacultyName AS Teacher, B.FacultyName AS DepartmentHead
-FROM Faculty A, Faculty B
-WHERE A.ManagerID = B.FacultyID;
+-- SELF JOIN: Finding students with the same marks
+-- (Uses the Students table twice)
+SELECT A.FirstName AS Student1, B.FirstName AS Student2, A.Marks
+FROM Students A, Students B
+WHERE A.Marks = B.Marks AND A.StudentID <> B.StudentID;
