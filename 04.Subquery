@@ -1,8 +1,15 @@
-#USED TO CHECK IF THERE IS ANY RECORD WHICH EXISTS
+-- 1. Subquery in WHERE: Find students scoring above the average
+SELECT FirstName, Marks FROM Students 
+WHERE Marks > (SELECT AVG(Marks) FROM Students);
 
-USE college;
-SELECT DeptName, StudentID
-FROM department d
-WHERE EXISTS (
-SELECT * FROM students s
-WHERE s.StudentID = d.StudentID);
+-- 2. Subquery in FROM: Find the highest mark from a temporary list
+SELECT MAX(TempTable.Marks) 
+FROM (SELECT Marks FROM Students WHERE Marks < 90) AS TempTable;
+
+-- 3. Subquery with IN: Find Names of students who are in the Student_Course table
+SELECT FirstName FROM Students 
+WHERE StudentID IN (SELECT StudentID FROM Student_Course);
+
+-- 4. Correlated Subquery: Find students whose marks are unique (no one else has them)
+SELECT FirstName FROM Students S1
+WHERE 1 = (SELECT COUNT(*) FROM Students S2 WHERE S1.Marks = S2.Marks);
