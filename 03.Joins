@@ -1,0 +1,24 @@
+USE College;
+
+-- INNER JOIN: Only returns matches in both tables
+SELECT S.FirstName, C.CourseName
+FROM Students S
+INNER JOIN Student_Course SC ON S.StudentID = SC.StudentID
+INNER JOIN Courses C ON SC.CourseID = C.CourseID;
+
+-- LEFT JOIN: All students, even those not enrolled in a course
+SELECT S.FirstName, C.CourseName
+FROM Students S
+LEFT JOIN Student_Course SC ON S.StudentID = SC.StudentID
+LEFT JOIN Courses C ON SC.CourseID = C.CourseID;
+
+-- RIGHT JOIN: All courses, even if no students are enrolled
+SELECT S.FirstName, C.CourseName
+FROM Student_Course SC
+RIGHT JOIN Courses C ON SC.CourseID = C.CourseID
+LEFT JOIN Students S ON SC.StudentID = S.StudentID;
+
+-- SELF JOIN: Joining a table to itself (Example: Faculty and their Managers)
+SELECT A.FacultyName AS Teacher, B.FacultyName AS DepartmentHead
+FROM Faculty A, Faculty B
+WHERE A.ManagerID = B.FacultyID;
