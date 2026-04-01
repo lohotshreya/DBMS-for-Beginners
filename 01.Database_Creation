@@ -1,21 +1,18 @@
-CREATE DATABASE IF NOT EXISTS College;
+CREATE DATABASE College;
 USE College;
 
--- 1. Students Table
 CREATE TABLE Students (
-    StudentID int PRIMARY KEY,
     FirstName varchar(255),
     RollNo int NOT NULL,
+    StudentID int PRIMARY KEY, -- Primary Key is required for the Foreign Keys below
     Marks int NOT NULL
 );
 
--- 2. Courses Table
 CREATE TABLE Courses (
     CourseID int PRIMARY KEY,
     CourseName varchar(255)
 );
 
--- 3. Mapping Table (Many-to-Many)
 CREATE TABLE Student_Course (
     StudentID int,
     CourseID int,
@@ -24,23 +21,18 @@ CREATE TABLE Student_Course (
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
 );
 
--- 4. Faculty Table
 CREATE TABLE Faculty (
     FacultyID int PRIMARY KEY,
     FacultyName varchar(255),
     CourseID int,
-    ManagerID int, -- Added for Self-Join example later
     FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
 );
 
--- Seed Data
-INSERT INTO Students (FirstName, RollNo, StudentID, Marks) VALUES 
+-- Inserting your exact data
+INSERT INTO Students(FirstName, RollNo, StudentID, Marks) VALUES 
 ('Shreya', 54, 1234, 92), ('Aarya', 08, 1243, 67), 
 ('Kshitij', 51, 1564, 87), ('Kartik', 48, 3784, 89), 
 ('Aditi', 03, 1567, 91), ('Arya', 26, 3467, 53);
 
 INSERT INTO Courses (CourseID, CourseName) VALUES 
-(1, 'Math'), (2, 'Physics'), (3, 'Computer Science'), (4, 'Art');
-
-INSERT INTO Student_Course (StudentID, CourseID) VALUES 
-(1234, 1), (1234, 3), (1243, 2), (1564, 3);
+(1, 'Math'), (2, 'Physics'), (3, 'Computer Science');
