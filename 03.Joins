@@ -21,3 +21,19 @@ LEFT JOIN Students ON Student_Course.StudentID = Students.StudentID;
 SELECT A.FirstName AS Student1, B.FirstName AS Student2, A.Marks
 FROM Students A, Students B
 WHERE A.Marks = B.Marks AND A.StudentID <> B.StudentID;
+
+USE College;
+
+-- Natural Join between Students and Student_Course
+-- It automatically matches on 'StudentID'
+SELECT FirstName, Marks, CourseID
+FROM Students
+NATURAL JOIN Student_Course;
+
+-- Natural Join across three tables
+-- It matches Students/Student_Course on 'StudentID' 
+-- and Student_Course/Courses on 'CourseID'
+SELECT Students.FirstName, Courses.CourseName
+FROM Students
+NATURAL JOIN Student_Course
+NATURAL JOIN Courses;
