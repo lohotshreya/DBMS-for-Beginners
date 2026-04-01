@@ -16,8 +16,10 @@ FROM Student_Course
 RIGHT JOIN Courses ON Student_Course.CourseID = Courses.CourseID
 LEFT JOIN Students ON Student_Course.StudentID = Students.StudentID;
 
--- SELF JOIN: Finding students with the same marks
--- (Uses the Students table twice)
+--SELF JOIN: Find students with the same marks
+SET SQL_SAFE_UPDATES = 0;
+UPDATE Students SET Marks = 92 WHERE StudentID = 3467;
+SET SQL_SAFE_UPDATES = 1;
 SELECT A.FirstName AS Student1, B.FirstName AS Student2, A.Marks
 FROM Students A, Students B
 WHERE A.Marks = B.Marks AND A.StudentID <> B.StudentID;
