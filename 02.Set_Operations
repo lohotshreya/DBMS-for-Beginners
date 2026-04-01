@@ -1,20 +1,25 @@
-USE College;
-
--- UNION: Combines results, removes duplicates
+-- UNION: All unique Student IDs from both tables
 SELECT StudentID FROM Students
 UNION
 SELECT StudentID FROM Student_Course;
 
--- UNION ALL: Combines results, keeps duplicates
+-- UNION ALL: All Student IDs (including duplicates)
 SELECT StudentID FROM Students
 UNION ALL
 SELECT StudentID FROM Student_Course;
 
--- ARITHMETIC / AGGREGATES
+-- INTERSECT (Logic): Students who appear in both tables
+SELECT FirstName FROM Students 
+WHERE StudentID IN (SELECT StudentID FROM Student_Course);
+
+-- EXCEPT (Logic): Students in the main table NOT in the course table
+SELECT FirstName FROM Students 
+WHERE StudentID NOT IN (SELECT StudentID FROM Student_Course);
+
+-- ARITHMETIC OPERATIONS
 SELECT 
     SUM(Marks) AS Total_Marks,
-    AVG(Marks) AS Average_Grade,
-    MIN(Marks) AS Lowest_Score,
-    MAX(Marks) AS Highest_Score,
-    COUNT(StudentID) AS Total_Students
+    AVG(Marks) AS Average_Marks,
+    MAX(Marks) - MIN(Marks) AS Score_Range,
+    COUNT(StudentID) AS Student_Count
 FROM Students;
