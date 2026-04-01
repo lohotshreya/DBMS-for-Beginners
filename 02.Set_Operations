@@ -1,0 +1,20 @@
+USE College;
+
+-- UNION: Combines results, removes duplicates
+SELECT StudentID FROM Students
+UNION
+SELECT StudentID FROM Student_Course;
+
+-- UNION ALL: Combines results, keeps duplicates
+SELECT StudentID FROM Students
+UNION ALL
+SELECT StudentID FROM Student_Course;
+
+-- ARITHMETIC / AGGREGATES
+SELECT 
+    SUM(Marks) AS Total_Marks,
+    AVG(Marks) AS Average_Grade,
+    MIN(Marks) AS Lowest_Score,
+    MAX(Marks) AS Highest_Score,
+    COUNT(StudentID) AS Total_Students
+FROM Students;
