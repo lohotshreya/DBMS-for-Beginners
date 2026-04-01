@@ -1,28 +1,46 @@
-CREATE Database Company;                                          #Creates new database named "Company".
-USE Company;                                                      #References database
+CREATE DATABASE IF NOT EXISTS College;
+USE College;
 
-CREATE TABLE Departments(
-DepartmentID int primary key,
-DepartmentName varchar(50)not null
+-- 1. Students Table
+CREATE TABLE Students (
+    StudentID int PRIMARY KEY,
+    FirstName varchar(255),
+    RollNo int NOT NULL,
+    Marks int NOT NULL
 );
 
-CREATE TABLE Employee(
-EmployeeID int primary key,
-FirstName varchar(50)not null,
-LastName varchar(50)not null,
-Age INT CHECK(Age>=18 AND Age<=60),
-Email VARCHAR(100),
-DepartmentID INT,
-FOREIGN KEY(DepartmentID) REFERENCES Departments(DepartmentID)
+-- 2. Courses Table
+CREATE TABLE Courses (
+    CourseID int PRIMARY KEY,
+    CourseName varchar(255)
 );
 
-INSERT INTO Departments(DepartmentID, DepartmentName) values (23, "Computer Science");
-INSERT INTO Departments(DepartmentID, DepartmentName) values (12, "Psychology");
-INSERT INTO Departments(DepartmentID, DepartmentName) values (07, "Education")
+-- 3. Mapping Table (Many-to-Many)
+CREATE TABLE Student_Course (
+    StudentID int,
+    CourseID int,
+    PRIMARY KEY (StudentID, CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
 
-SHOW DATABASES;
-USE Company;
-SHOW TABLES;
+-- 4. Faculty Table
+CREATE TABLE Faculty (
+    FacultyID int PRIMARY KEY,
+    FacultyName varchar(255),
+    CourseID int,
+    ManagerID int, -- Added for Self-Join example later
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
 
-SELECT * FROM Departments;
-SELECT * FROM Employee;
+-- Seed Data
+INSERT INTO Students (FirstName, RollNo, StudentID, Marks) VALUES 
+('Shreya', 54, 1234, 92), ('Aarya', 08, 1243, 67), 
+('Kshitij', 51, 1564, 87), ('Kartik', 48, 3784, 89), 
+('Aditi', 03, 1567, 91), ('Arya', 26, 3467, 53);
+
+INSERT INTO Courses (CourseID, CourseName) VALUES 
+(1, 'Math'), (2, 'Physics'), (3, 'Computer Science'), (4, 'Art');
+
+INSERT INTO Student_Course (StudentID, CourseID) VALUES 
+(1234, 1), (1234, 3), (1243, 2), (1564, 3);
