@@ -1,0 +1,7 @@
+-- INTERSECT
+SELECT StudentID FROM Students 
+WHERE StudentID IN (SELECT StudentID FROM Student_Course);
+
+-- EXCEPT
+SELECT StudentID FROM Students 
+WHERE StudentID NOT IN (SELECT StudentID FROM Student_Course);
