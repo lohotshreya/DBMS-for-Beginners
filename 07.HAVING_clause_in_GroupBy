@@ -1,0 +1,5 @@
+USE company;
+SELECT DepartmentID, SUM(Salary)
+FROM employee
+GROUP BY DepartmentID
+HAVING SUM(Salary) > 100000;
