@@ -41,3 +41,18 @@ DELIMITER ;
 
 UPDATE Student SET Name = 'Raman Kumar' WHERE SID = 123;
 SELECT * FROM Student_Log;
+
+//TRIGGER AFTER DELETE
+
+DELIMITER $$
+CREATE TRIGGER trg_after_delete
+AFTER DELETE ON Student
+FOR EACH ROW
+BEGIN
+    INSERT INTO Student_Log
+    VALUES (CONCAT("Student ID Deleted ", OLD.SID, ": Name: ", OLD.Name));
+END $$
+
+DELIMITER ;
+DELETE FROM Student WHERE SID = 123;
+SELECT * FROM Student_Log;
