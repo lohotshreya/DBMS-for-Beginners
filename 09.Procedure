@@ -1,1 +1,14 @@
+USE trig;
 
+DROP PROCEDURE IF EXISTS GetStudentDetails;
+
+DELIMITER $$
+
+CREATE PROCEDURE GetStudentDetails(IN s_sid INT)
+BEGIN
+    SELECT * FROM Student WHERE SID = s_sid;
+END $$
+
+DELIMITER ;
+
+CALL GetStudentDetails(124);
